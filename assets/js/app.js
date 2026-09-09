@@ -35,7 +35,7 @@
   revealActiveTab();
   if (updateHash) {
    try { if (window.location.hash !== '#' + name) window.location.hash = name; }
-   catch (_) { /* Sandboxed embeds may disallow location changes; tabs still work. */ }
+   catch (_) {}
   }
   if (scroll) window.scrollTo({ top: 0, behavior: 'auto' });
  }
@@ -74,7 +74,7 @@
  window.addEventListener('hashchange', () => routeHash(false));
  routeHash(false);
 
- // Keep the publication page synchronized with newly published work.
+ // Keep the publication page synchronized with current publication/manuscript records.
  const publications = root.querySelector('#publications');
  if (publications) {
   const newTitle = 'Localization of steel rebar embedded in cementitious materials using frequency-difference electrical resistance tomography (ERT): Effects of measurement configuration and validation by micro-CT';
@@ -100,26 +100,48 @@
   const filter2026Count = publications.querySelector('[data-year-filter="2026"] span');
   if (filter2026Count) filter2026Count.textContent = '8';
 
-  const oldReviewTitle = 'High-spatial-resolution mapping of steel rebar-embedded cementitious matrix using frequency-difference electrical resistance tomography (ERT) and performance evaluation via micro-CT';
-  const manuscriptItems = Array.from(publications.querySelectorAll('.paper[data-kind="manuscript"]'));
-  manuscriptItems.forEach(item => {
-   const title = item.querySelector('h3');
-   if (title && title.textContent.trim() === oldReviewTitle) item.remove();
+  const manuscripts = [
+   ['Hydration kinetics, phase evolution, and microstructural impacts of sodium bicarbonate–incorporated MgO–activated slag','Results in Engineering'],
+   ['Synthesis of FAU-type microporous zeolite as a CO2-responsive internal reservoir for enhanced carbonation curing of Portland cement: Hydration and microstructural evolution','Journal of Building Engineering'],
+   ['Rapid early strength development and phase evolution in a waste oyster shell-derived calcium carbonate binder via aluminate-induced reactions','Journal of Cleaner Production'],
+   ['Fe-Doped Olivine–Derived Carbon Dioxide Removal (CDR) Binders Enabled by Thermally Driven Ca2+/Mg2+ Exchange and Carbonation-Induced Strength Development','Construction and Building Materials'],
+   ['Influence of calcium nitrate-impregnated biochar on hydration of Portland cement paste','Case Studies in Construction Materials'],
+   ['Triethanolamine (TEA)-induced enhancement and microstructural densification of biochar-incorporated CaO-NaOH-activated GGBFS binders','Case Studies in Construction Materials'],
+   ['Calcium carboxylate-enabled water resistance in mechanochemically modified fly ash-based cementless binders with saturated fatty acids of varying chain lengths','Developments in the Built Environment'],
+   ['Effect of oyster shell incorporation on the mechanical performance and reaction characteristics of metakaolin-based geopolymers','Journal of Building Engineering'],
+   ['Ethylenediaminetetraacetic acid (EDTA)-regulated hydration-carbonation reactions for strength enhancement of water-mixed high-calcium fly ash under early CO2 curing','Journal of Building Engineering'],
+   ['Triethanolamine (TEA)-induced strength enhancement and reaction characteristics of calcium formate-CaO-activated cementless GGBFS binders','Journal of Building Engineering']
+  ];
+  const reviewSection = publications.querySelector('#manuscripts');
+  if (reviewSection) {
+   const list = reviewSection.querySelector('.paper-list');
+   if (list) {
+    list.innerHTML = '';
+    manuscripts.forEach((record,index) => {
+     const n=index+1;
+     const item=document.createElement('li');
+     item.className='paper';
+     item.dataset.kind='manuscript';
+     item.dataset.number=String(n);
+     item.dataset.year='';
+     item.innerHTML='<div class="paper-number">M'+String(n).padStart(2,'0')+'</div><div><span class="review-status">Under revision</span><h3>'+record[0]+'</h3><div class="journal-line"><p class="journal">'+record[1]+'</p></div></div>';
+     list.appendChild(item);
+    });
+   }
+   const reviewCount = publications.querySelector('#manuscripts-heading span');
+   if (reviewCount) reviewCount.textContent = ' · 10 entries';
+   const subnote = reviewSection.querySelector('.subnote');
+   if (subnote) subnote.textContent = 'Manuscripts currently under revision. These are not counted as journal publications and remain visible regardless of the publication filters above.';
+  }
+  const sourceParas = Array.from(publications.querySelectorAll('.pub-source p'));
+  sourceParas.forEach(p => {
+   if (p.textContent.includes('PLC hydration-heat manuscript')) p.remove();
   });
-  const remainingManuscripts = Array.from(publications.querySelectorAll('.paper[data-kind="manuscript"]'));
-  remainingManuscripts.forEach((item, index) => {
-   const n = index + 1;
-   item.dataset.number = String(n);
-   const label = item.querySelector('.paper-number');
-   if (label) label.textContent = 'M' + String(n).padStart(2,'0');
-  });
-  const reviewCount = publications.querySelector('#manuscripts-heading span');
-  if (reviewCount) reviewCount.textContent = ' · 5 source entries';
   const consolidated = publications.querySelector('.pub-source p');
   if (consolidated) consolidated.textContent = 'Publication data last consolidated: 10 September 2026.';
  }
 
- // All bibliographic entries remain in the HTML. Filtering never removes source records.
+ // All bibliographic entries remain in the HTML. Filtering never removes journal records.
  const search = root.querySelector('#pub-search');
  if (search) {
   const yearButtons = Array.from(root.querySelectorAll('[data-year-filter]'));
@@ -133,21 +155,21 @@
   function filter() {
    const words = normalize(search.value.trim()).split(/\s+/).filter(Boolean);
    let journals=0;
-   const manuscripts=manuscriptEntries.length;
+   const manuscriptCount=manuscriptEntries.length;
    function matches(el) { const text=normalize(el.textContent); return words.every(word=>text.includes(word)); }
    journalEntries.forEach(entry => {
     entry.hidden = !((year==='all' || entry.dataset.year===year) && matches(entry));
     if (!entry.hidden) journals++;
    });
    groups.forEach(group => { group.hidden = !Array.from(group.querySelectorAll('.paper')).some(p=>!p.hidden); });
-   // Manuscripts are a separate, permanently expanded list, independent of journal filters.
    manuscriptEntries.forEach(entry => { entry.hidden = false; });
-   reviews.hidden = false;
+   if (reviews) reviews.hidden = false;
    const milestones=root.querySelectorAll('.milestone');
    milestones.forEach(node=>{node.hidden=year!=='all'||words.length>0;});
-   count.textContent = journals+' of '+journalEntries.length+' journal entries · '+manuscripts+' manuscript entries';
-   noResults.hidden = journals!==0;
-   root.querySelector('#clear-search').hidden = search.value.length===0;
+   if (count) count.textContent = journals+' of '+journalEntries.length+' journal entries · '+manuscriptCount+' manuscript entries';
+   if (noResults) noResults.hidden = journals!==0;
+   const clear=root.querySelector('#clear-search');
+   if (clear) clear.hidden = search.value.length===0;
    yearButtons.forEach(button=>{
     const selected=button.dataset.yearFilter===year;
     button.classList.toggle('active',selected);button.setAttribute('aria-pressed',String(selected));
@@ -155,15 +177,14 @@
   }
   yearButtons.forEach(button=>button.addEventListener('click',()=>{ year=button.dataset.yearFilter;filter(); }));
   search.addEventListener('input',filter);
-  root.querySelector('#clear-search').addEventListener('click',()=>{ search.value=''; filter(); search.focus(); });
-  root.querySelector('#show-review').addEventListener('click',()=>{
-   reviews.scrollIntoView({block:'start',behavior:'auto'});
-  });
+  const clear=root.querySelector('#clear-search');
+  if (clear) clear.addEventListener('click',()=>{ search.value=''; filter(); search.focus(); });
+  const showReview=root.querySelector('#show-review');
+  if (showReview && reviews) showReview.addEventListener('click',()=>{ reviews.scrollIntoView({block:'start',behavior:'auto'}); });
   root.addEventListener('input', event=>{if(event.target.isContentEditable)filter();});
   filter();
  }
- 
- // A supplied remote portrait has a neutral initials fallback if the host is unavailable.
+
  root.querySelectorAll('[data-photo-slot] img').forEach(img => {
   const show = () => { img.hidden=false; };
   const hide = () => { img.hidden=true; };
