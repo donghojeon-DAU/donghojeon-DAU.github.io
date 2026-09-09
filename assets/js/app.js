@@ -73,6 +73,52 @@
  });
  window.addEventListener('hashchange', () => routeHash(false));
  routeHash(false);
+
+ // Keep the publication page synchronized with newly published work.
+ const publications = root.querySelector('#publications');
+ if (publications) {
+  const newTitle = 'Localization of steel rebar embedded in cementitious materials using frequency-difference electrical resistance tomography (ERT): Effects of measurement configuration and validation by micro-CT';
+  const year2026 = publications.querySelector('#publications-2026');
+  const list2026 = year2026 && year2026.querySelector('.paper-list');
+  if (list2026 && !list2026.querySelector('.paper[data-number="58"]')) {
+   const item = document.createElement('li');
+   item.className = 'paper';
+   item.dataset.kind = 'journal';
+   item.dataset.number = '58';
+   item.dataset.year = '2026';
+   item.innerHTML = '<div class="paper-number">#58</div><div><h3>'+newTitle+'</h3><p class="authors"><strong>D Jeon</strong>, S Yoon*</p><div class="journal-line"><p class="journal">Construction and Building Materials</p><a class="paper-link" href="https://scholar.google.com/scholar?q='+encodeURIComponent('"'+newTitle+'"')+'" rel="noopener noreferrer" target="_blank">Search title ↗</a></div><p class="source-metric">Impact factor: 8.0 · JCR rank: 4.1%</p></div>';
+   list2026.prepend(item);
+  }
+  if (year2026) {
+   const yearCount = year2026.querySelector('h2 span');
+   if (yearCount) yearCount.textContent = '8 entries';
+  }
+  const overviewCount = publications.querySelector('.pub-overview b');
+  if (overviewCount) overviewCount.textContent = '58';
+  const allYearCount = publications.querySelector('[data-year-filter="all"] span');
+  if (allYearCount) allYearCount.textContent = '58';
+  const filter2026Count = publications.querySelector('[data-year-filter="2026"] span');
+  if (filter2026Count) filter2026Count.textContent = '8';
+
+  const oldReviewTitle = 'High-spatial-resolution mapping of steel rebar-embedded cementitious matrix using frequency-difference electrical resistance tomography (ERT) and performance evaluation via micro-CT';
+  const manuscriptItems = Array.from(publications.querySelectorAll('.paper[data-kind="manuscript"]'));
+  manuscriptItems.forEach(item => {
+   const title = item.querySelector('h3');
+   if (title && title.textContent.trim() === oldReviewTitle) item.remove();
+  });
+  const remainingManuscripts = Array.from(publications.querySelectorAll('.paper[data-kind="manuscript"]'));
+  remainingManuscripts.forEach((item, index) => {
+   const n = index + 1;
+   item.dataset.number = String(n);
+   const label = item.querySelector('.paper-number');
+   if (label) label.textContent = 'M' + String(n).padStart(2,'0');
+  });
+  const reviewCount = publications.querySelector('#manuscripts-heading span');
+  if (reviewCount) reviewCount.textContent = ' · 5 source entries';
+  const consolidated = publications.querySelector('.pub-source p');
+  if (consolidated) consolidated.textContent = 'Publication data last consolidated: 10 September 2026.';
+ }
+
  // All bibliographic entries remain in the HTML. Filtering never removes source records.
  const search = root.querySelector('#pub-search');
  if (search) {
