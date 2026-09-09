@@ -61,8 +61,83 @@
   display: none !important;
 }
 
+/* Google Drive photo gallery */
+#jeonlab .drive-gallery-shell { padding: 4px 0 24px; }
+#jeonlab .drive-gallery-status { margin: 0 0 16px; color: var(--muted); font-size: 14px; }
+#jeonlab .drive-gallery-count { text-align: right; }
+#jeonlab .drive-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+#jeonlab .drive-photo-card {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  overflow: hidden;
+  background: #fff;
+  text-align: left;
+  color: var(--ink);
+  cursor: zoom-in;
+}
+#jeonlab .drive-photo-card:hover { border-color: #b9c8d9; }
+#jeonlab .drive-photo-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: #eef2f6;
+}
+#jeonlab .drive-photo-caption {
+  display: block;
+  padding: 10px 12px 11px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--body);
+  overflow-wrap: anywhere;
+}
+#jeonlab .photo-lightbox {
+  width: min(92vw, 1100px);
+  max-width: 1100px;
+  border: 0;
+  border-radius: 8px;
+  padding: 14px;
+  background: #fff;
+  box-shadow: 0 18px 60px rgba(0,0,0,.28);
+}
+#jeonlab .photo-lightbox::backdrop { background: rgba(18,30,48,.76); }
+#jeonlab .photo-lightbox img {
+  display: block;
+  max-width: 100%;
+  max-height: 78vh;
+  margin: 0 auto;
+  object-fit: contain;
+}
+#jeonlab .photo-lightbox p { margin: 10px 34px 0 2px; color: var(--body); font-size: 14px; }
+#jeonlab .photo-lightbox-close {
+  position: absolute;
+  top: 8px;
+  right: 9px;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,.92);
+  color: var(--ink);
+  font-size: 25px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+@media (max-width: 760px) {
+  #jeonlab .drive-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+}
 @media (max-width: 540px) {
   #jeonlab { font-size: 16px !important; }
   #jeonlab .milestone { font-size: 20px !important; }
   #jeonlab .news-year { font-size: 19px; margin-top: 24px; }
+  #jeonlab .drive-gallery { grid-template-columns: 1fr; }
+  #jeonlab .drive-photo-caption { font-size: 13px; }
 }
