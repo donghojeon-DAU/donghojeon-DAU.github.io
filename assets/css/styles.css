@@ -52,9 +52,9 @@
 #jeonlab .news-year:first-child { margin-top: 4px; }
 #jeonlab .news-archive .news-list { margin-bottom: 4px; }
 
-/* PI profile photo */
+/* PI profile photo: use the original high-resolution JPG uploaded to the repository root */
 #jeonlab #members-photo {
-  background: #fff url("../images/dongho-jeon.svg") center center / cover no-repeat !important;
+  background: #fff url("../../dongho-jeon.jpg") center center / cover no-repeat !important;
 }
 #jeonlab #members-photo .photo-fallback,
 #jeonlab #members-photo > img {
