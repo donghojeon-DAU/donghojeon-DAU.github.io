@@ -1,6 +1,20 @@
 (function () {
   'use strict';
 
+  // Additional Jeon Lab news item.
+  const homeNews = document.getElementById('home-news');
+  if (homeNews && !homeNews.querySelector('[data-news-id="otim-ucu-2026-09"]')) {
+    const year2026 = Array.from(homeNews.querySelectorAll('.news-year')).find(el => el.textContent.trim() === '2026');
+    const list2026 = year2026 && year2026.nextElementSibling;
+    if (list2026 && list2026.classList.contains('news-list')) {
+      const item = document.createElement('li');
+      item.className = 'news-item';
+      item.dataset.newsId = 'otim-ucu-2026-09';
+      item.innerHTML = '<time datetime="2026-09">2026.09</time><p>Otim Kelvin Kennedy (M.S. graduate) appointed as Lecturer at Uganda Christian University, Department of Engineering and Environment.</p>';
+      list2026.appendChild(item);
+    }
+  }
+
   const API_URL = 'https://script.google.com/macros/s/AKfycbw8KdVwuTvAOGnOLgmsHSzkh-zFCXxtgJrCI0KLcx1yMa8jma8ehMgadKVHuIo6HLbT/exec';
   const panel = document.getElementById('photo');
   if (!panel) return;
