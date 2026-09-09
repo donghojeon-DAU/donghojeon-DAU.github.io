@@ -3,3 +3,42 @@
 /* Jeon Lab publication layout: year sidebar removed */
 #jeonlab .year-sidebar { display: none !important; }
 #jeonlab .pub-layout { display: block !important; }
+
+/* Global typography scale-up */
+#jeonlab { font-size: 17px !important; }
+#jeonlab .nav a { font-size: 14px !important; }
+#jeonlab .page-head .dek,
+#jeonlab .authors,
+#jeonlab .journal,
+#jeonlab .source-metric,
+#jeonlab .pub-context,
+#jeonlab .paper-link,
+#jeonlab .subnote,
+#jeonlab .pub-source,
+#jeonlab .member-role,
+#jeonlab .member-affiliation,
+#jeonlab .student-facts,
+#jeonlab .student-journal,
+#jeonlab .ip-detail,
+#jeonlab .ip-translation { font-size: 1.08em !important; }
+#jeonlab .paper h3 { font-size: 1.08em !important; }
+#jeonlab .button { font-size: 14px !important; }
+#jeonlab .news-item,
+#jeonlab .entry p { font-size: 15px !important; }
+#jeonlab .date,
+#jeonlab .news-item time { font-size: 14px !important; }
+
+/* Publication milestone separators */
+#jeonlab .milestone {
+  text-align: center !important;
+  font-size: 22px !important;
+  font-weight: 700 !important;
+  color: var(--ink) !important;
+  margin: 42px 0 28px !important;
+  letter-spacing: -0.25px;
+}
+
+@media (max-width: 540px) {
+  #jeonlab { font-size: 16px !important; }
+  #jeonlab .milestone { font-size: 20px !important; }
+}
