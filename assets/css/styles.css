@@ -52,6 +52,15 @@
 #jeonlab .news-year:first-child { margin-top: 4px; }
 #jeonlab .news-archive .news-list { margin-bottom: 4px; }
 
+/* PI profile photo */
+#jeonlab #members-photo {
+  background: #fff url("../images/dongho-jeon.svg") center center / cover no-repeat !important;
+}
+#jeonlab #members-photo .photo-fallback,
+#jeonlab #members-photo > img {
+  display: none !important;
+}
+
 @media (max-width: 540px) {
   #jeonlab { font-size: 16px !important; }
   #jeonlab .milestone { font-size: 20px !important; }
