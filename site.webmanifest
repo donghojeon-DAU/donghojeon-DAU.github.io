@@ -1,0 +1,9 @@
+{
+  "name": "Jeon Lab · Dong-A University",
+  "short_name": "Jeon Lab",
+  "start_url": "./#home",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#172b4d",
+  "icons": []
+}
