@@ -74,6 +74,36 @@
  window.addEventListener('hashchange', () => routeHash(false));
  routeHash(false);
 
+ // Full news archive on the Home page.
+ const homeNews = root.querySelector('#home-news');
+ if (homeNews) {
+  homeNews.innerHTML = '<div class="home-section-head"><h2>News</h2></div>'+
+   '<div class="news-archive">'+
+   '<h3 class="news-year">2026</h3><ul class="news-list">'+
+   '<li class="news-item"><time datetime="2026-09">2026.09</time><p>2026년 부산도시공사 기술자문위원회 위원 위촉</p></li>'+
+   '<li class="news-item"><time datetime="2026-09">2026.09</time><p>IABSE Congress Incheon 2026. Session Organizer (S05: Physics-informed machine learning for structural and concrete systems)</p></li>'+
+   '<li class="news-item"><time datetime="2026-08">2026.08</time><p>2026년 부산지역 연구개발 우수성과 선정 (BISTEP) - 석사과정 변예림</p></li>'+
+   '<li class="news-item"><time datetime="2026-08">2026.08</time><p>2026학년도 후기 대학원 우수연구상 수상 (동아대학교) - 석사과정 Otim Kelvin Kennedy</p></li>'+
+   '<li class="news-item"><time datetime="2026-08">2026.08</time><p>콘크리트 다중모드 압전센싱 연구 뉴스 보도 <a href="https://www.kookje.co.kr/news2011/asp/newsbody.asp?code=0300&amp;key=20260804.99099000879" rel="noopener noreferrer" target="_blank">News Link ↗</a></p></li>'+
+   '<li class="news-item"><time datetime="2026-08">2026.08</time><p>2026년 부산교통공사 기술자문위원회 위원 위촉</p></li>'+
+   '<li class="news-item"><time datetime="2026-07">2026.07</time><p>2026년 부산광역시 건설기술심의위원회 위원 위촉</p></li>'+
+   '<li class="news-item"><time datetime="2026-04">2026.04</time><p>2026 여대학원생 공학연구팀제 심화과정 선정 (과기정통부·WISET) - 석사과정 변예림 <a href="https://www.kyosu.net/news/articleView.html?idxno=203489" rel="noopener noreferrer" target="_blank">News Link ↗</a></p></li>'+
+   '<li class="news-item"><time datetime="2026-03">2026.03</time><p>2025 최우수 강의교원 선정 (동아대학교)</p></li>'+
+   '<li class="news-item"><time datetime="2026-01">2026.01</time><p>기술이전(노하우) 계약 (타스(TASS)) - 금속 잔재물 활용 콘크리트 배합 및 제조 실험</p></li>'+
+   '</ul>'+
+   '<h3 class="news-year">2025</h3><ul class="news-list">'+
+   '<li class="news-item"><time datetime="2025-03">2025.03</time><p>변예림 학생 석사과정 입학</p></li>'+
+   '</ul>'+
+   '<h3 class="news-year">2024</h3><ul class="news-list">'+
+   '<li class="news-item"><time datetime="2024-12">2024.12</time><p>2024 콘크리트 기술경연대회 학부생 수상 (한국콘크리트학회) - 학부과정 임동훈·김준영·변예림·송윤섭·이재혁·최성호 <a href="https://www.kci.or.kr/upload/mailing/217_250506164548352.pdf" rel="noopener noreferrer" target="_blank">News Link ↗</a></p></li>'+
+   '<li class="news-item"><time datetime="2024-09">2024.09</time><p>Otim Kelvin Kennedy 학생 석사과정 입학 (GKS student)</p></li>'+
+   '<li class="news-item"><time datetime="2024-02">2024.02</time><p>청촌장학재단 연구비 선정 (청촌장학재단, 디엔오토모티브) <a href="https://www.busan.com/view/busan/view.php?code=2024030616415332800" rel="noopener noreferrer" target="_blank">News Link ↗</a></p></li>'+
+   '</ul>'+
+   '<h3 class="news-year">2023</h3><ul class="news-list">'+
+   '<li class="news-item"><time datetime="2023-03">2023.03</time><p>동아대학교 건설시스템공학과 조교수 임용</p></li>'+
+   '</ul></div>';
+ }
+
  // Keep the publication page synchronized with current publication/manuscript records.
  const publications = root.querySelector('#publications');
  if (publications) {
