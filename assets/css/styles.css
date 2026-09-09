@@ -38,7 +38,22 @@
   letter-spacing: -0.25px;
 }
 
+/* Full news archive */
+#jeonlab .news-archive { margin-top: 6px; }
+#jeonlab .news-year {
+  margin: 30px 0 8px;
+  color: var(--ink);
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.35;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 8px;
+}
+#jeonlab .news-year:first-child { margin-top: 4px; }
+#jeonlab .news-archive .news-list { margin-bottom: 4px; }
+
 @media (max-width: 540px) {
   #jeonlab { font-size: 16px !important; }
   #jeonlab .milestone { font-size: 20px !important; }
+  #jeonlab .news-year { font-size: 19px; margin-top: 24px; }
 }
