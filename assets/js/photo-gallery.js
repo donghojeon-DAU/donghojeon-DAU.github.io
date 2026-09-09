@@ -10,8 +10,8 @@
       const item = document.createElement('li');
       item.className = 'news-item';
       item.dataset.newsId = 'otim-ucu-2026-09';
-      item.innerHTML = '<time datetime="2026-09">2026.09</time><p>Otim Kelvin Kennedy (M.S. graduate) appointed as Lecturer at Uganda Christian University, Department of Engineering and Environment.</p>';
-      list2026.appendChild(item);
+      item.innerHTML = '<time datetime="2026-09">2026.09</time><p>Otim Kelvin Kennedy (M.S. graduate) Lecturer 임용 (Uganda Christian University, Department of Engineering and Environment)</p>';
+      list2026.prepend(item);
     }
   }
 
