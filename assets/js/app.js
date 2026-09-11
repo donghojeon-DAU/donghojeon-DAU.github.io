@@ -88,6 +88,24 @@
 
   routeHash(false);
 
+  // Bilingual Korean-English introduction on Home.
+  const homeHero = root.querySelector('.home-hero');
+  if (homeHero) {
+    const title = homeHero.querySelector('h1');
+    if (title) {
+      title.innerHTML = '<span lang="ko" style="display:block">스마트·지속가능 건설재료 연구실</span><span style="display:block;font-size:.62em;line-height:1.18;margin-top:.48rem;font-weight:600">Smart &amp; Sustainable Construction Materials Lab</span>';
+    }
+    const lead = homeHero.querySelector('.home-lead');
+    if (lead) {
+      lead.innerHTML = '<span lang="ko" style="display:block">저탄소 건설재료 개발을 위한 재료과학, 센싱, AI를 연구합니다.</span><span style="display:block;margin-top:.45rem">Advancing low-carbon construction materials through materials science, sensing, and artificial intelligence.</span>';
+    }
+  }
+
+  const homeIntro = root.querySelector('.home-intro');
+  if (homeIntro) {
+    homeIntro.innerHTML = '<p lang="ko"><strong>우리 연구는 지속가능한 건설재료, 폐기물 자원화, 탄소 활용, AI 기반 재료공학, 그리고 시멘트계 재료 및 인프라를 위한 스마트 센싱에 중점을 두고 있습니다.</strong></p><p style="margin-top:.55rem">Our research focuses on sustainable construction materials, waste valorization, carbon utilization, AI-enabled materials engineering, and smart sensing for cement-based materials and infrastructure.</p>';
+  }
+
   // Full news archive on Home.
   const homeNews = root.querySelector('#home-news');
   if (homeNews) {
