@@ -15,6 +15,39 @@
     }
   }
 
+  // Move Otim Kelvin Kennedy from current members to alumni.
+  const memberSection = document.getElementById('member-students');
+  const alumniSection = document.getElementById('member-alumni');
+  if (memberSection && alumniSection) {
+    const kelvinProfile = Array.from(memberSection.querySelectorAll('.student-profile')).find(profile => {
+      const name = profile.querySelector('h3');
+      return name && name.textContent.trim() === 'Otim Kelvin Kennedy';
+    });
+    if (kelvinProfile) kelvinProfile.remove();
+
+    const memberCount = memberSection.querySelector('.heading-count');
+    if (memberCount) memberCount.textContent = '01';
+
+    const alumniCount = alumniSection.querySelector('.heading-count');
+    if (alumniCount) alumniCount.textContent = '07';
+
+    if (!alumniSection.querySelector('[data-alumni-id="otim-kelvin-kennedy"]')) {
+      const undergraduateTitle = alumniSection.querySelector('.alumni-subtitle');
+      const graduateTitle = document.createElement('h3');
+      graduateTitle.className = 'alumni-subtitle';
+      graduateTitle.dataset.alumniId = 'otim-kelvin-kennedy';
+      graduateTitle.innerHTML = 'M.S. graduates <span lang="ko">· 석사 졸업생</span>';
+
+      const graduateTable = document.createElement('table');
+      graduateTable.className = 'alumni-table';
+      graduateTable.innerHTML = '<caption class="visually-hidden">Master alumni, graduation dates, and affiliations or careers</caption><thead><tr><th scope="col">Name</th><th scope="col">Graduation</th><th scope="col">Affiliation / career</th></tr></thead><tbody><tr><th scope="row">Otim Kelvin Kennedy</th><td>2026.08</td><td>Uganda Christian University</td></tr></tbody>';
+
+      if (undergraduateTitle) alumniSection.insertBefore(graduateTitle, undergraduateTitle);
+      else alumniSection.appendChild(graduateTitle);
+      alumniSection.insertBefore(graduateTable, undergraduateTitle || null);
+    }
+  }
+
   const API_URL = 'https://script.google.com/macros/s/AKfycbw8KdVwuTvAOGnOLgmsHSzkh-zFCXxtgJrCI0KLcx1yMa8jma8ehMgadKVHuIo6HLbT/exec';
   const panel = document.getElementById('photo');
   if (!panel) return;
