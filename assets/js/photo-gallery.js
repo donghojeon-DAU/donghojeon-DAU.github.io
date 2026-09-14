@@ -1,6 +1,21 @@
 (function () {
   'use strict';
 
+  // Google Analytics 4 (GA4).
+  const GA_MEASUREMENT_ID = 'G-3FSHGF4PRY';
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+  window.gtag('js', new Date());
+  window.gtag('config', GA_MEASUREMENT_ID);
+
+  if (!document.querySelector('script[data-jeonlab-ga4]')) {
+    const gaScript = document.createElement('script');
+    gaScript.async = true;
+    gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(GA_MEASUREMENT_ID);
+    gaScript.dataset.jeonlabGa4 = 'true';
+    document.head.appendChild(gaScript);
+  }
+
   // Additional Jeon Lab news item.
   const homeNews = document.getElementById('home-news');
   if (homeNews && !homeNews.querySelector('[data-news-id="otim-ucu-2026-09"]')) {
