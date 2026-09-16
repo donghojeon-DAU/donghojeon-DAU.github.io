@@ -30,6 +30,22 @@
     }
   }
 
+  // Update award news titles and links without changing the rest of the news archive.
+  if (homeNews) {
+    const newsItems = Array.from(homeNews.querySelectorAll('.news-item'));
+    const researchAward = newsItems.find(item => item.textContent.includes('최우수 연구업적 교원'));
+    if (researchAward) {
+      const p = researchAward.querySelector('p');
+      if (p) p.innerHTML = '2026학년도 최우수 연구업적 교원 (동아대학교) <a href="https://www.donga.ac.kr/kor/CMS/Board/Board.do?mCode=MN044&amp;mode=view&amp;mgr_seq=54&amp;board_seq=8516311" rel="noopener noreferrer" target="_blank">News Link ↗</a>';
+    }
+
+    const teachingAward = newsItems.find(item => item.textContent.includes('최우수 강의교원'));
+    if (teachingAward) {
+      const p = teachingAward.querySelector('p');
+      if (p) p.innerHTML = '2025 최우수 강의교원 (동아대학교) <a href="https://www.donga.ac.kr/kor/CMS/Board/Board.do?mcode=&amp;mCode=MN044&amp;searchID=sch002&amp;searchKeyword=%EC%A0%84%EB%8F%99%ED%98%B8&amp;searchCategory=&amp;mgr_seq=54&amp;mode=view&amp;mgr_seq=54&amp;board_seq=8420707" rel="noopener noreferrer" target="_blank">News Link ↗</a>';
+    }
+  }
+
   // Move Otim Kelvin Kennedy from current members to alumni.
   const memberSection = document.getElementById('member-students');
   const alumniSection = document.getElementById('member-alumni');
