@@ -8,16 +8,22 @@
   const homeContact = document.querySelector('.home-contact');
   if (recruitment && homeContact) homeContact.before(recruitment);
 
-  // Show the publication year on every journal entry.
+  // Show publication year directly after the journal name: Journal Name (2026).
   document.querySelectorAll('#publications .paper[data-kind="journal"][data-year]').forEach(paper => {
     const year = paper.dataset.year;
-    if (!year || paper.querySelector('.publication-year')) return;
+    if (!year) return;
     const journal = paper.querySelector('.journal');
     if (!journal) return;
-    const badge = document.createElement('span');
-    badge.className = 'publication-year';
-    badge.textContent = year;
-    journal.appendChild(badge);
+    const oldYear = journal.querySelector('.publication-year');
+    if (oldYear) oldYear.remove();
+    const yearSpan = document.createElement('span');
+    yearSpan.className = 'publication-year';
+    yearSpan.textContent = ' (' + year + ')';
+    yearSpan.style.fontSize = '1.08em';
+    yearSpan.style.fontWeight = '700';
+    yearSpan.style.marginLeft = '.28em';
+    journal.appendChild(yearSpan);
+    journal.style.fontSize = '1.08em';
   });
 
   // Google Analytics 4 (GA4).
