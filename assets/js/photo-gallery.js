@@ -1,13 +1,31 @@
 (function () {
   'use strict';
 
+  // Home refinements requested for the current layout.
+  const homeLead = document.querySelector('.home-hero .home-lead');
+  if (homeLead) homeLead.remove();
+  const recruitment = document.getElementById('students');
+  const homeContact = document.querySelector('.home-contact');
+  if (recruitment && homeContact) homeContact.before(recruitment);
+
+  // Show the publication year on every journal entry.
+  document.querySelectorAll('#publications .paper[data-kind="journal"][data-year]').forEach(paper => {
+    const year = paper.dataset.year;
+    if (!year || paper.querySelector('.publication-year')) return;
+    const journal = paper.querySelector('.journal');
+    if (!journal) return;
+    const badge = document.createElement('span');
+    badge.className = 'publication-year';
+    badge.textContent = year;
+    journal.appendChild(badge);
+  });
+
   // Google Analytics 4 (GA4).
   const GA_MEASUREMENT_ID = 'G-3FSHGF4PRY';
   window.dataLayer = window.dataLayer || [];
   window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
   window.gtag('js', new Date());
   window.gtag('config', GA_MEASUREMENT_ID);
-
   if (!document.querySelector('script[data-jeonlab-ga4]')) {
     const gaScript = document.createElement('script');
     gaScript.async = true;
@@ -30,7 +48,7 @@
     }
   }
 
-  // Update award news titles and links without changing the rest of the news archive.
+  // Update award news titles and links.
   if (homeNews) {
     const newsItems = Array.from(homeNews.querySelectorAll('.news-item'));
     const researchAward = newsItems.find(item => item.textContent.includes('최우수 연구업적 교원'));
@@ -38,7 +56,6 @@
       const p = researchAward.querySelector('p');
       if (p) p.innerHTML = '2026학년도 최우수 연구업적 교원 (동아대학교) <a href="https://www.donga.ac.kr/kor/CMS/Board/Board.do?mCode=MN044&amp;mode=view&amp;mgr_seq=54&amp;board_seq=8516311" rel="noopener noreferrer" target="_blank">News Link ↗</a>';
     }
-
     const teachingAward = newsItems.find(item => item.textContent.includes('최우수 강의교원'));
     if (teachingAward) {
       const p = teachingAward.querySelector('p');
@@ -55,24 +72,19 @@
       return name && name.textContent.trim() === 'Otim Kelvin Kennedy';
     });
     if (kelvinProfile) kelvinProfile.remove();
-
     const memberCount = memberSection.querySelector('.heading-count');
     if (memberCount) memberCount.textContent = '01';
-
     const alumniCount = alumniSection.querySelector('.heading-count');
     if (alumniCount) alumniCount.textContent = '07';
-
     if (!alumniSection.querySelector('[data-alumni-id="otim-kelvin-kennedy"]')) {
       const undergraduateTitle = alumniSection.querySelector('.alumni-subtitle');
       const graduateTitle = document.createElement('h3');
       graduateTitle.className = 'alumni-subtitle';
       graduateTitle.dataset.alumniId = 'otim-kelvin-kennedy';
       graduateTitle.innerHTML = 'M.S. graduates <span lang="ko">· 석사 졸업생</span>';
-
       const graduateTable = document.createElement('table');
       graduateTable.className = 'alumni-table';
       graduateTable.innerHTML = '<caption class="visually-hidden">Master alumni, graduation dates, and affiliations or careers</caption><thead><tr><th scope="col">Name</th><th scope="col">Graduation</th><th scope="col">Affiliation / career</th></tr></thead><tbody><tr><th scope="row">Otim Kelvin Kennedy</th><td>2026.08</td><td>Uganda Christian University</td></tr></tbody>';
-
       if (undergraduateTitle) alumniSection.insertBefore(graduateTitle, undergraduateTitle);
       else alumniSection.appendChild(graduateTitle);
       alumniSection.insertBefore(graduateTable, undergraduateTitle || null);
@@ -82,96 +94,53 @@
   const API_URL = 'https://script.google.com/macros/s/AKfycbw8KdVwuTvAOGnOLgmsHSzkh-zFCXxtgJrCI0KLcx1yMa8jma8ehMgadKVHuIo6HLbT/exec';
   const panel = document.getElementById('photo');
   if (!panel) return;
-
   const oldGrid = panel.querySelector('.photo-grid');
   const oldNote = panel.querySelector('.photo-note');
-
   const shell = document.createElement('section');
   shell.className = 'drive-gallery-shell';
   shell.setAttribute('aria-label', 'Jeon Lab photo gallery');
   shell.innerHTML = '<p class="drive-gallery-status" role="status">Loading photos…</p><div class="drive-gallery" hidden></div>';
-
-  if (oldGrid) oldGrid.replaceWith(shell);
-  else panel.appendChild(shell);
+  if (oldGrid) oldGrid.replaceWith(shell); else panel.appendChild(shell);
   if (oldNote) oldNote.remove();
-
   const status = shell.querySelector('.drive-gallery-status');
   const grid = shell.querySelector('.drive-gallery');
-
   const dialog = document.createElement('dialog');
   dialog.className = 'photo-lightbox';
   dialog.innerHTML = '<button class="photo-lightbox-close" type="button" aria-label="Close photo">×</button><img alt=""><p></p>';
   panel.appendChild(dialog);
-
   const dialogImg = dialog.querySelector('img');
   const dialogCaption = dialog.querySelector('p');
   dialog.querySelector('.photo-lightbox-close').addEventListener('click', () => dialog.close());
-  dialog.addEventListener('click', event => {
-    if (event.target === dialog) dialog.close();
-  });
+  dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
 
   function cleanName(name) {
-    return String(name || '')
-      .replace(/\.[^.]+$/, '')
-      .replace(/[_-]+/g, ' ')
-      .replace(/\s+/g, ' ')
-      .trim();
+    return String(name || '').replace(/\.[^.]+$/, '').replace(/[_-]+/g, ' ').replace(/\s+/g, ' ').trim();
   }
-
   function render(photos) {
     if (!Array.isArray(photos) || photos.length === 0) {
-      status.textContent = 'No photos have been added yet.';
-      grid.hidden = true;
-      return;
+      status.textContent = 'No photos have been added yet.'; grid.hidden = true; return;
     }
-
     grid.innerHTML = '';
     photos.forEach((photo, index) => {
       const title = cleanName(photo.name) || ('Photo ' + (index + 1));
       const card = document.createElement('button');
-      card.type = 'button';
-      card.className = 'drive-photo-card';
-      card.setAttribute('aria-label', 'Open ' + title);
-
+      card.type = 'button'; card.className = 'drive-photo-card'; card.setAttribute('aria-label', 'Open ' + title);
       const img = document.createElement('img');
-      img.loading = index < 6 ? 'eager' : 'lazy';
-      img.decoding = 'async';
-      img.alt = title;
-      img.src = photo.image;
-
-      const caption = document.createElement('span');
-      caption.className = 'drive-photo-caption';
-      caption.textContent = title;
-
+      img.loading = index < 6 ? 'eager' : 'lazy'; img.decoding = 'async'; img.alt = title; img.src = photo.image;
+      const caption = document.createElement('span'); caption.className = 'drive-photo-caption'; caption.textContent = title;
       card.append(img, caption);
       card.addEventListener('click', () => {
-        dialogImg.src = photo.image;
-        dialogImg.alt = title;
-        dialogCaption.textContent = title;
-        if (typeof dialog.showModal === 'function') dialog.showModal();
-        else window.open(photo.image, '_blank', 'noopener');
+        dialogImg.src = photo.image; dialogImg.alt = title; dialogCaption.textContent = title;
+        if (typeof dialog.showModal === 'function') dialog.showModal(); else window.open(photo.image, '_blank', 'noopener');
       });
       grid.appendChild(card);
     });
-
     status.textContent = photos.length + (photos.length === 1 ? ' photo' : ' photos');
-    status.classList.add('drive-gallery-count');
-    grid.hidden = false;
+    status.classList.add('drive-gallery-count'); grid.hidden = false;
   }
-
-  function fail() {
-    status.textContent = 'Photos could not be loaded. Please try again later.';
-    grid.hidden = true;
-  }
-
-  window.jeonLabPhotos = function (photos) {
-    render(photos);
-    try { delete window.jeonLabPhotos; } catch (_) {}
-  };
-
+  function fail() { status.textContent = 'Photos could not be loaded. Please try again later.'; grid.hidden = true; }
+  window.jeonLabPhotos = function (photos) { render(photos); try { delete window.jeonLabPhotos; } catch (_) {} };
   const script = document.createElement('script');
-  script.src = API_URL + '?callback=jeonLabPhotos&_=' + Date.now();
-  script.async = true;
-  script.onerror = fail;
+  script.src = API_URL + '?callback=jeonLabPhotos&_=' + Date.now(); script.async = true; script.onerror = fail;
   document.head.appendChild(script);
 })();
