@@ -21,11 +21,11 @@
       '</ol>';
   }
 
-  // Remove publication result-count text (e.g., 58 of 58 journal entries · 10 manuscript entries).
+  // Remove publication result-count text.
   const publicationResults = document.getElementById('pub-results');
   if (publicationResults) publicationResults.remove();
 
-  // Show publication year directly after the journal name: Journal Name (2026).
+  // Show publication year directly after the journal name.
   document.querySelectorAll('#publications .paper[data-kind="journal"][data-year]').forEach(paper => {
     const year = paper.dataset.year;
     if (!year) return;
@@ -42,6 +42,17 @@
     journal.appendChild(yearSpan);
     journal.style.fontSize = '1.08em';
   });
+
+  // Add PI email under the affiliation on the Team page.
+  const piIntro = document.querySelector('#member-pi .pi-intro');
+  if (piIntro && !piIntro.querySelector('.pi-email')) {
+    const affiliation = piIntro.querySelector('.member-affiliation');
+    const email = document.createElement('p');
+    email.className = 'pi-email';
+    email.style.marginTop = '.55rem';
+    email.innerHTML = '<a href="mailto:donghojeon@dau.ac.kr">donghojeon@dau.ac.kr</a>';
+    if (affiliation) affiliation.after(email); else piIntro.appendChild(email);
+  }
 
   // Google Analytics 4 (GA4).
   const GA_MEASUREMENT_ID = 'G-3FSHGF4PRY';
