@@ -114,7 +114,7 @@
       <div class="news-archive">
         <h3 class="news-year">2026</h3>
         <ul class="news-list">
-          <li class="news-item"><time datetime="2026-09">2026.09</time><p>2026학년도 동아대학교 연구 업적 최우수상 수상 <a href="https://www.donga.ac.kr/kor/CMS/Board/Board.do?mCode=MN044&amp;mode=view&amp;mgr_seq=54&amp;board_seq=8516311" rel="noopener noreferrer" target="_blank">News Link ↗</a></p></li>
+          <li class="news-item"><time datetime="2026-09">2026.09</time><p>2026학년도 동아대학교 최우수 연구업적 교원 선정 <a href="https://www.donga.ac.kr/kor/CMS/Board/Board.do?mCode=MN044&amp;mode=view&amp;mgr_seq=54&amp;board_seq=8516311" rel="noopener noreferrer" target="_blank">News Link ↗</a></p></li>
           <li class="news-item"><time datetime="2026-09">2026.09</time><p>2026년 부산도시공사 기술자문위원회 위원 위촉</p></li>
           <li class="news-item"><time datetime="2026-09">2026.09</time><p>IABSE Congress Incheon 2026. Session Organizer (S05: Physics-informed machine learning for structural and concrete systems)</p></li>
           <li class="news-item"><time datetime="2026-08">2026.08</time><p>2026년 부산지역 연구개발 우수성과 선정 (BISTEP) - 석사과정 변예림</p></li>
