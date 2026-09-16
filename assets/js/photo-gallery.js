@@ -21,6 +21,10 @@
       '</ol>';
   }
 
+  // Remove publication result-count text (e.g., 58 of 58 journal entries · 10 manuscript entries).
+  const publicationResults = document.getElementById('pub-results');
+  if (publicationResults) publicationResults.remove();
+
   // Show publication year directly after the journal name: Journal Name (2026).
   document.querySelectorAll('#publications .paper[data-kind="journal"][data-year]').forEach(paper => {
     const year = paper.dataset.year;
