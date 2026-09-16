@@ -8,6 +8,19 @@
   const homeContact = document.querySelector('.home-contact');
   if (recruitment && homeContact) homeContact.before(recruitment);
 
+  // Replace Research at a glance with Recent Research Highlights.
+  const homeResearch = document.getElementById('home-research');
+  if (homeResearch) {
+    homeResearch.innerHTML = '<div class="home-section-head"><h2>Recent Research Highlights</h2><a href="#publications">View publications ↗</a></div>' +
+      '<ol class="recent-research-highlights" style="margin:0;padding-left:1.5rem;display:grid;gap:1.2rem">' +
+      '<li><strong>Physics-Informed Neural Network Surrogate for Predicting Hydration Heat Evolution Profiles of Portland Limestone Cement (PLC)</strong><div style="margin-top:.3rem;font-size:1.02em"><em>Developments in the Built Environment</em> · JCR Top 3% · 2026</div></li>' +
+      '<li><strong>Multi-Mode Piezoelectric (PZT) Sensing for In-Situ Profiling of the Evolution of Dynamic Properties in Cement-Based Materials</strong><div style="margin-top:.3rem;font-size:1.02em"><em>Cement and Concrete Composites</em> · JCR Top 0.5% · 2026</div></li>' +
+      '<li><strong>Hybrid Machine Learning Framework for Predicting Pozzolanic Reactivity: Integration of R3 Test and GAN-Augmented Data</strong><div style="margin-top:.3rem;font-size:1.02em"><em>Construction and Building Materials</em> · JCR Top 4% · 2026</div></li>' +
+      '<li><strong>Deep Learning-Based Site-Specific Prediction of Rail Joint-Gap Variations on Curved Ballasted Track Using Field-Measured Rail Data</strong><div style="margin-top:.3rem;font-size:1.02em"><em>Case Studies in Construction Materials</em> · JCR Top 8% · 2025</div></li>' +
+      '<li><strong>High-Accuracy Rebar Position Detection Using Deep Learning–Based Frequency-Difference Electrical Resistance Tomography</strong><div style="margin-top:.3rem;font-size:1.02em"><em>Automation in Construction</em> · JCR Top 0.3% · 2022</div></li>' +
+      '</ol>';
+  }
+
   // Show publication year directly after the journal name: Journal Name (2026).
   document.querySelectorAll('#publications .paper[data-kind="journal"][data-year]').forEach(paper => {
     const year = paper.dataset.year;
